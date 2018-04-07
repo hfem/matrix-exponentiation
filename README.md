@@ -30,13 +30,16 @@ Solve for the 19<sup>th</sup> term
 The naive method of calculating <b>B<sup>16</sup></b> is to multiply <b>B</b> sixteen times, but we know that <b>B<sup>16</sup></b> = <b>(B<sup>8</sup>)<sup>2</sup></b> = <b>((B<sup>4</sup>)<sup>2</sup>)<sup>2</sup></b> = <b>((((B<sup>2</sup>)<sup>2</sup>)<sup>2</sup>)<sup>2</sup>)</b> which we can use to optimize the number of multiplications, each time just squaring the previous value.
 
 ## Implementation
-- Matrix Class Template  
-  - keeps track of rows and columns and matrix data values in an array 
-  - implements matrix*matrix multiplication and operator<<
-  - allows for any data type (currently: type alias BigNum for an unsigned 64-bit integer) 
-- Fibonacci Class
-  - keeps track of matrices calculated for the binary exponentiation of N and the first and second term of that sequence
-  - implements algorithm for using matrices to find N<sup>th</sup> term
-  - limited by current data type used, next item: find a large integer C++ library
+- **Matrix** class template :  *Matrix.h* && *Matrix.cpp*
+  - split into two files for readability
+  - keeps track of number of rows and columns and keeps matrix data values in an array 
+  - currently implements Matrix * Matrix multiplication and operator << (necessary for the Fibonacci problem)
+  - templating the class allows for any data type (currently: type alias BigNum = unsigned 64-bit integer) 
+- **Fibonacci** class : *Fibonacci.h* && *Fibonacci.cpp*
+  - keeps track of matrices previously calculated for the binary exponentiation of N and the first and second term of the current sequence
+  - updateExpMatrices () - updates the list of the calculated matrices if the last matrix in the list **!=** the initial matrix raised to 2<sup>k</sup>, where k is the highest bit set in the binary representation of **N**
+  - setStartValues () - saves the initial values of the current Fibonacci sequence to be calculated
+  - findNthTerm () - implements formula for using the exponentiation matrices to find N<sup>th</sup> term (as described above)
+  - limited by current data type used :: find a large integer C++ library
 
 *Why?* I just thought this was a really interesting use of matrices to speed up an algorithm that I had thought was already optimized.
